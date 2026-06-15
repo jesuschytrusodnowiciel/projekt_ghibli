@@ -101,17 +101,53 @@ class FilmsPage extends StatelessWidget {
               ),
               trailing: const Icon(Icons.chevron_right),
               onTap: () {
-                ScaffoldMessenger.of(context).showSnackBar(
-                  SnackBar(
-                    content: Text(
-                      'placeholder',
-                    ),
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FilmDetailsPage(film: film),
                   ),
                 );
               },
             ),
           );
         },
+      ),
+    );
+  }
+}
+
+class FilmDetailsPage extends StatelessWidget {
+  const FilmDetailsPage({super.key, required this.film});
+
+  final GhibliFilm film;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(film.title),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(20),
+        children: [
+          Text(
+            film.title,
+            style: const TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 16),
+          Text('Rok: ${film.year}'),
+          Text('Rezyser: ${film.director}'),
+          Text('Czas trwania: ${film.duration}'),
+          Text('Ocena: ${film.score}/100'),
+          const SizedBox(height: 20),
+          const Text(
+            'Opis',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          const SizedBox(height: 8),
+          Text(film.description),
+        ],
       ),
     );
   }
